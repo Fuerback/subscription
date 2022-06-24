@@ -1,0 +1,341 @@
+openapi: 3.0.3
+info:
+  title: Subscription API
+  version: 1.0.0
+  description: |
+    The **Subscription** service.
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      description: The error response.
+      properties:
+        messages:
+          type: array
+          items:
+            type: string
+            example: Validation error
+    
+    Product:
+      type: object
+      properties:
+        name:
+          description: Name of the product
+          type: string
+          example: Basic
+        period:
+          description: The period duration of a product
+          type: string
+          example: MONTHLY
+          enum:
+            - MONTHLY
+            - ANNUAL
+        price:
+          description: The product price
+          type: number
+          example: 100.00
+          
+    ProductList:
+      type: object
+      properties:
+        current_page:
+          description: Current page of the pagination
+          type: integer
+          example: 1
+        per_page:
+          description: Amount of items that should be returned on each page
+          type: integer
+          example: 10
+        items:
+          description: Array of available entrie items
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+
+            
+    Account:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The account name
+          example: Felipe
+          
+    Purchase:
+      type: object
+      properties:
+        voucher:
+          type: string
+          description: The voucher
+          example: 10_OFF
+          
+    UpdateSubscriptionStatus:
+      type: object
+      properties:
+        status:
+          description: The subscription status
+          type: string
+          example: ACTIVE
+          enum:
+            - PAUSED
+            - CANCELLED
+            - TRIAL
+    
+    Subscription:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The subscription unique ID
+          example: 6903187c-a7b3-488d-9759-ab0db7aa3f2e
+        starts_at:
+          type: string
+          description: The subscription initial date
+          example: 2017-07-21
+        ends_at:
+          type: string
+          description: The subscription final date
+          example: 2017-07-21
+        product:
+          $ref: '#/components/schemas/Product'
+        account:
+          $ref: '#/components/schemas/Account'
+        status:
+          description: The subscription status
+          type: string
+          example: ACTIVE
+          enum:
+            - PAUSED
+            - CANCELLED
+            - TRIAL
+        voucher:
+          type: string
+          description: The subscription voucher
+          example: 10_OFF
+        payment_value:
+          type: number
+          description: The subscription payment value
+          example: 99.90
+          
+    SubscriptionList:
+      type: object
+      properties:
+        current_page:
+          description: Current page of the pagination
+          type: integer
+          example: 1
+        per_page:
+          description: Amount of items that should be returned on each page
+          type: integer
+          example: 10
+        items:
+          description: Array of available entrie items
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscription'
+
+paths:
+  /v1/product:
+    get:
+      description: |
+        Fetch a list of products
+      tags:
+        - V1 - Products
+      parameters:
+        - in: query
+          name: voucher
+          required: false
+          description: Filter products by voucher
+          schema:
+            type: string
+            example: 10_OFF
+        - in: query
+          name: perPage
+          required: false
+          description: Control the number of entries per page
+          schema:
+            type: integer
+            example: 15
+        - in: query
+          name: page
+          required: false
+          description: Control the current page
+          schema:
+            type: integer
+            example: 1
+
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /v1/product/{id}:
+    get:
+      description: |
+        Fetch a product
+      tags:
+        - V1 - Products
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The product unique ID
+          schema:
+            type: string
+            format: uuid
+
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/product/purchase/{id}:
+    post:
+      description: |
+        Purchase a product
+      tags:
+        - V1 - Products
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The product unique ID
+          schema:
+            type: string
+            format: uuid
+        - in: header
+          name: x-account-id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Purchase'
+
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/subscription/status/{id}:
+    patch:
+      description: |
+        Change a subscription status
+      tags:
+        - V1 - Subscription
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The subscription unique ID
+          schema:
+            type: string
+            format: uuid
+        - in: header
+          name: x-account-id
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSubscriptionStatus'
+
+      responses:
+        '200':
+          description: OK.
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/account/subscription:
+    get:
+      description: |
+        Fetch a list of subscription
+      tags:
+        - V1 - Subscription
+      parameters:
+        - in: header
+          name: x-account-id
+          schema:
+            type: string
+            format: uuid
+          required: true
+
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionList'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    
