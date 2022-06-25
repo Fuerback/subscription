@@ -85,7 +85,7 @@ components:
     Subscription:
       type: object
       properties:
-        id:
+        subscription_id:
           type: string
           description: The subscription unique ID
           example: 6903187c-a7b3-488d-9759-ab0db7aa3f2e
@@ -305,13 +305,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /v1/account/subscription:
+  /v1/subscription/{id}:
     get:
       description: |
         Fetch a list of subscription
       tags:
         - V1 - Subscription
       parameters:
+        - in: path
+          name: id
+          required: true
+          description: The subscription unique ID
+          schema:
+            type: string
+            format: uuid
         - in: header
           name: x-account-id
           schema:
@@ -325,7 +332,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SubscriptionList'
+                $ref: '#/components/schemas/Subscription'
         '400':
           description: Bad request.
           content:
