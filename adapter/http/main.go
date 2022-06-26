@@ -35,8 +35,8 @@ func main() {
 
 	router := mux.NewRouter()
 
-	jsonApiRouter := router.PathPrefix("/v1/").Subrouter()
-	jsonApiRouter.Handle("/product", http.HandlerFunc(productService.Fetch)).Methods("GET")
+	router.HandleFunc("/v1/product", productService.Fetch).Methods("GET")
+	router.HandleFunc("/v1/product/{id}", productService.FetchOne).Methods("GET")
 
 	port := viper.GetString("server.port")
 	if port == "" {

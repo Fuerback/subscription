@@ -39,7 +39,7 @@ func TestFetch(t *testing.T) {
 	sut := New(mockProductUseCase)
 
 	w := httptest.NewRecorder()
-	r := httptest.NewRequest(http.MethodGet, "/product", nil)
+	r := httptest.NewRequest(http.MethodGet, "/v1/product", nil)
 	r.Header.Set("Content-Type", "application/json")
 	queryStringParams := r.URL.Query()
 	queryStringParams.Add("page", "1")
@@ -62,7 +62,7 @@ func TestFetch_PorductError(t *testing.T) {
 	sut := New(mockProductUseCase)
 
 	w := httptest.NewRecorder()
-	r := httptest.NewRequest(http.MethodGet, "/product", nil)
+	r := httptest.NewRequest(http.MethodGet, "/v1/product", nil)
 	r.Header.Set("Content-Type", "application/json")
 	queryStringParams := r.URL.Query()
 	queryStringParams.Add("page", "1")

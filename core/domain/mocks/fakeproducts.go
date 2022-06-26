@@ -48,6 +48,18 @@ func (mr *MockProductServiceMockRecorder) Fetch(response, request interface{}) *
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Fetch", reflect.TypeOf((*MockProductService)(nil).Fetch), response, request)
 }
 
+// FetchOne mocks base method.
+func (m *MockProductService) FetchOne(response http.ResponseWriter, request *http.Request) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "FetchOne", response, request)
+}
+
+// FetchOne indicates an expected call of FetchOne.
+func (mr *MockProductServiceMockRecorder) FetchOne(response, request interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FetchOne", reflect.TypeOf((*MockProductService)(nil).FetchOne), response, request)
+}
+
 // MockProductUseCase is a mock of ProductUseCase interface.
 type MockProductUseCase struct {
 	ctrl     *gomock.Controller
@@ -86,6 +98,21 @@ func (mr *MockProductUseCaseMockRecorder) Fetch(paginationRequest interface{}) *
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Fetch", reflect.TypeOf((*MockProductUseCase)(nil).Fetch), paginationRequest)
 }
 
+// FetchOne mocks base method.
+func (m *MockProductUseCase) FetchOne(id string) (*domain.Product, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "FetchOne", id)
+	ret0, _ := ret[0].(*domain.Product)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// FetchOne indicates an expected call of FetchOne.
+func (mr *MockProductUseCaseMockRecorder) FetchOne(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FetchOne", reflect.TypeOf((*MockProductUseCase)(nil).FetchOne), id)
+}
+
 // MockProductRepository is a mock of ProductRepository interface.
 type MockProductRepository struct {
 	ctrl     *gomock.Controller
@@ -122,4 +149,19 @@ func (m *MockProductRepository) Fetch(paginationRequest *dto.PaginationRequestPa
 func (mr *MockProductRepositoryMockRecorder) Fetch(paginationRequest interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Fetch", reflect.TypeOf((*MockProductRepository)(nil).Fetch), paginationRequest)
+}
+
+// FetchOne mocks base method.
+func (m *MockProductRepository) FetchOne(id string) (*domain.Product, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "FetchOne", id)
+	ret0, _ := ret[0].(*domain.Product)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// FetchOne indicates an expected call of FetchOne.
+func (mr *MockProductRepositoryMockRecorder) FetchOne(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FetchOne", reflect.TypeOf((*MockProductRepository)(nil).FetchOne), id)
 }

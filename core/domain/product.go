@@ -18,14 +18,17 @@ type Product struct {
 // ProductService is a contract of http adapter layer
 type ProductService interface {
 	Fetch(response http.ResponseWriter, request *http.Request)
+	FetchOne(response http.ResponseWriter, request *http.Request)
 }
 
 // ProductUseCase is a contract of business rule layer
 type ProductUseCase interface {
 	Fetch(paginationRequest *dto.PaginationRequestParms) (*Pagination, error)
+	FetchOne(id string) (*Product, error)
 }
 
 // ProductRepository is a contract of database connection adapter layer
 type ProductRepository interface {
 	Fetch(paginationRequest *dto.PaginationRequestParms) (*Pagination, error)
+	FetchOne(id string) (*Product, error)
 }
