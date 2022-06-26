@@ -14,10 +14,11 @@ func (repository repository) Fetch(pagination *dto.PaginationRequestParms) (*dom
 
 	query := fmt.Sprintf("select * from product limit %d offset %d", pagination.PerPage, pagination.Page)
 	rows, err := repository.db.QueryContext(ctx, query)
-	defer rows.Close()
 	if err != nil {
 		return nil, err
 	}
+
+	defer rows.Close()
 
 	for rows.Next() {
 		product := domain.Product{}
