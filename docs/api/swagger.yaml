@@ -20,6 +20,9 @@ components:
     Product:
       type: object
       properties:
+        id:
+          description: The product unique id
+          type: string
         name:
           description: Name of the product
           type: string
@@ -35,16 +38,16 @@ components:
           description: The product price
           type: number
           example: 100.00
+        active:
+          description: The current status of product
+          type: string
+          example: "true"
           
     ProductList:
       type: object
       properties:
-        current_page:
-          description: Current page of the pagination
-          type: integer
-          example: 1
-        per_page:
-          description: Amount of items that should be returned on each page
+        total:
+          description: Amount of items founded
           type: integer
           example: 10
         items:
@@ -156,6 +159,7 @@ paths:
           description: Control the number of entries per page
           schema:
             type: integer
+            default: 10
             example: 15
         - in: query
           name: page
@@ -163,6 +167,7 @@ paths:
           description: Control the current page
           schema:
             type: integer
+            default: 0
             example: 1
 
       responses:

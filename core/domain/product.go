@@ -12,7 +12,7 @@ type Product struct {
 	Name   string  `json:"name"`
 	Price  float32 `json:"price"`
 	Period string  `json:"period"`
-	Status string  `json:"status"`
+	Active string  `json:"active"`
 }
 
 // ProductService is a contract of http adapter layer

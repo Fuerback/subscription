@@ -26,7 +26,7 @@ func TestFetch(t *testing.T) {
 	mockProductRepository := mocks.NewMockProductRepository(mockCtrl)
 	mockProductRepository.EXPECT().Fetch(&fakePaginationRequestParams).Return(&domain.Pagination{
 		Items: []domain.Product{fakeDBProduct},
-		Total: 1,
+		Total: 10,
 	}, nil)
 
 	sut := New(mockProductRepository)
@@ -40,7 +40,7 @@ func TestFetch(t *testing.T) {
 		require.Equal(t, product.Name, fakeDBProduct.Name)
 		require.Equal(t, product.Price, fakeDBProduct.Price)
 		require.Equal(t, product.Period, fakeDBProduct.Period)
-		require.Equal(t, product.Status, fakeDBProduct.Status)
+		require.Equal(t, product.Active, fakeDBProduct.Active)
 	}
 }
 

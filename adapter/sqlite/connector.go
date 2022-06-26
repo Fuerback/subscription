@@ -14,7 +14,7 @@ type Db interface {
 
 // GetConnection return connection from sql.DB
 func GetConnection(context context.Context) *sql.DB {
-	db, err := sql.Open("sqlite3", "./gymondo.sqlite")
+	db, err := sql.Open("sqlite3", "./gymondo2.sqlite")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
 		os.Exit(1)

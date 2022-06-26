@@ -10,7 +10,7 @@ type CreateProductRequest struct {
 	Name   string  `json:"name"`
 	Price  float32 `json:"price"`
 	Period string  `json:"period"`
-	Status string  `json:"status"`
+	Active string  `json:"active"`
 }
 
 // FromJSONCreateProductRequest converts json body request to a CreateProductRequest struct

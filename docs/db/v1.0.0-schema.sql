@@ -10,7 +10,7 @@ CREATE TABLE product (
     period STRING  NOT NULL,
     price  DECIMAL NOT NULL,
     active BOOLEAN NOT NULL
-                   DEFAULT (true) 
+                   DEFAULT (1) 
 );
 
 

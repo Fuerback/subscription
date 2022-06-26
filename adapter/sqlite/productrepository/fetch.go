@@ -26,7 +26,7 @@ func (repository repository) Fetch(pagination *dto.PaginationRequestParms) (*dom
 			&product.Name,
 			&product.Period,
 			&product.Price,
-			&product.Status,
+			&product.Active,
 		)
 		if err != nil {
 			return nil, err

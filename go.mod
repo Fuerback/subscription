@@ -4,6 +4,7 @@ go 1.16
 
 require (
 	github.com/bxcodec/faker/v3 v3.8.0
+	github.com/golang-migrate/migrate/v4 v4.15.2
 	github.com/golang/mock v1.6.0
 	github.com/gorilla/mux v1.8.0
 	github.com/mattn/go-sqlite3 v1.14.13
