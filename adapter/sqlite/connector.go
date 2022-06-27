@@ -11,6 +11,7 @@ import (
 type Db interface {
 	QueryContext(ctx context.Context, query string, args ...interface{}) (*sql.Rows, error)
 	PrepareContext(ctx context.Context, query string) (*sql.Stmt, error)
+	BeginTx(ctx context.Context, opts *sql.TxOptions) (*sql.Tx, error)
 }
 
 // GetConnection return connection from sql.DB

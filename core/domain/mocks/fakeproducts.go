@@ -60,6 +60,18 @@ func (mr *MockProductServiceMockRecorder) FetchOne(response, request interface{}
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FetchOne", reflect.TypeOf((*MockProductService)(nil).FetchOne), response, request)
 }
 
+// Purchase mocks base method.
+func (m *MockProductService) Purchase(response http.ResponseWriter, request *http.Request) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "Purchase", response, request)
+}
+
+// Purchase indicates an expected call of Purchase.
+func (mr *MockProductServiceMockRecorder) Purchase(response, request interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Purchase", reflect.TypeOf((*MockProductService)(nil).Purchase), response, request)
+}
+
 // MockProductUseCase is a mock of ProductUseCase interface.
 type MockProductUseCase struct {
 	ctrl     *gomock.Controller
@@ -113,6 +125,21 @@ func (mr *MockProductUseCaseMockRecorder) FetchOne(id interface{}) *gomock.Call 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FetchOne", reflect.TypeOf((*MockProductUseCase)(nil).FetchOne), id)
 }
 
+// Purchase mocks base method.
+func (m *MockProductUseCase) Purchase(purchaseRequest *dto.PurchaseRequest) (*domain.Subscription, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Purchase", purchaseRequest)
+	ret0, _ := ret[0].(*domain.Subscription)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Purchase indicates an expected call of Purchase.
+func (mr *MockProductUseCaseMockRecorder) Purchase(purchaseRequest interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Purchase", reflect.TypeOf((*MockProductUseCase)(nil).Purchase), purchaseRequest)
+}
+
 // MockProductRepository is a mock of ProductRepository interface.
 type MockProductRepository struct {
 	ctrl     *gomock.Controller
@@ -164,4 +191,19 @@ func (m *MockProductRepository) FetchOne(id string) (*domain.Product, error) {
 func (mr *MockProductRepositoryMockRecorder) FetchOne(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FetchOne", reflect.TypeOf((*MockProductRepository)(nil).FetchOne), id)
+}
+
+// Purchase mocks base method.
+func (m *MockProductRepository) Purchase(subscription *domain.Subscription) (string, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Purchase", subscription)
+	ret0, _ := ret[0].(string)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Purchase indicates an expected call of Purchase.
+func (mr *MockProductRepositoryMockRecorder) Purchase(subscription interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Purchase", reflect.TypeOf((*MockProductRepository)(nil).Purchase), subscription)
 }
