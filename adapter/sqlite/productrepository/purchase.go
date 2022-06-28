@@ -16,7 +16,7 @@ func (repository repository) Purchase(subscription *domain.Subscription) (string
 		return "", err
 	}
 
-	stmt, err := tx.PrepareContext(ctx, "insert into subscription(id, startsAt, endsAt, status, voucher_id, account_id, product_id) values (?,?,?,?,?,?,?)")
+	stmt, err := tx.PrepareContext(ctx, "insert into subscription(id, starts_at, ends_at, status, voucher_id, account_id, product_id) values (?,?,?,?,?,?,?)")
 	defer stmt.Close()
 	if err != nil {
 		return "", err

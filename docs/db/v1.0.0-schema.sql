@@ -19,26 +19,27 @@ CREATE TABLE voucher (
     code       STRING NOT NULL,
     type       STRING NOT NULL,
     status     STRING NOT NULL,
-    product_id STRING REFERENCES product (id) 
-                      NOT NULL
+    product_id STRING NOT NULL,
+    FOREIGN KEY(product_id) REFERENCES product(id)
 );
 
 
 CREATE TABLE subscription (
     id         STRING PRIMARY KEY,
-    startsAt   DATE   NOT NULL,
-    endsAt     DATE   NOT NULL,
+    starts_at   DATE   NOT NULL,
+    ends_at     DATE   NOT NULL,
     status     STRING NOT NULL,
-    voucher_id STRING REFERENCES voucher (id),
-    account_id STRING REFERENCES account (id) 
-                      NOT NULL,
-    product_id STRING REFERENCES product (id) 
-                      NOT NULL
+    voucher_id STRING,
+    account_id STRING NOT NULL,
+    product_id STRING NOT NULL,
+    FOREIGN KEY(voucher_id) REFERENCES voucher(id),
+    FOREIGN KEY(account_id) REFERENCES account(id),
+    FOREIGN KEY(product_id) REFERENCES product(id)
 );
 
 CREATE TABLE payment (
     id              STRING  PRIMARY KEY,
     value           DECIMAL NOT NULL,
-    subscription_id STRING  REFERENCES subscription (id) 
-                            NOT NULL
+    subscription_id STRING  NOT NULL,
+    FOREIGN KEY(subscription_id) REFERENCES subscription(id)
 );
