@@ -50,7 +50,7 @@ func TestFetch(t *testing.T) {
 	res := w.Result()
 	defer res.Body.Close()
 
-	require.Equal(t, 200, res.StatusCode)
+	require.Equal(t, http.StatusOK, res.StatusCode)
 }
 
 func TestFetch_PorductError(t *testing.T) {
@@ -73,5 +73,5 @@ func TestFetch_PorductError(t *testing.T) {
 	res := w.Result()
 	defer res.Body.Close()
 
-	require.NotEqual(t, 200, res.StatusCode)
+	require.NotEqual(t, http.StatusOK, res.StatusCode)
 }

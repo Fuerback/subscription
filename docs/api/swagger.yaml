@@ -82,8 +82,9 @@ components:
           example: ACTIVE
           enum:
             - PAUSED
-            - CANCELLED
-            - TRIAL
+            - ACTIVE
+      required:
+        - status
     
     Subscription:
       type: object

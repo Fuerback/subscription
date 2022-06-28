@@ -41,7 +41,7 @@ func TestFetchOne(t *testing.T) {
 	res := w.Result()
 	defer res.Body.Close()
 
-	require.Equal(t, 200, res.StatusCode)
+	require.Equal(t, http.StatusOK, res.StatusCode)
 }
 
 func TestFetchOne_PorductError(t *testing.T) {
@@ -61,5 +61,5 @@ func TestFetchOne_PorductError(t *testing.T) {
 	res := w.Result()
 	defer res.Body.Close()
 
-	require.NotEqual(t, 200, res.StatusCode)
+	require.NotEqual(t, http.StatusOK, res.StatusCode)
 }

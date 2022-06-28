@@ -49,7 +49,7 @@ func TestPurchase(t *testing.T) {
 	res := w.Result()
 	defer res.Body.Close()
 
-	require.Equal(t, 200, res.StatusCode)
+	require.Equal(t, http.StatusCreated, res.StatusCode)
 }
 
 func TestPurchase_PorductError(t *testing.T) {
@@ -71,5 +71,5 @@ func TestPurchase_PorductError(t *testing.T) {
 	res := w.Result()
 	defer res.Body.Close()
 
-	require.NotEqual(t, 200, res.StatusCode)
+	require.NotEqual(t, http.StatusCreated, res.StatusCode)
 }

@@ -9,6 +9,7 @@ import (
 	reflect "reflect"
 
 	domain "github.com/Fuerback/subscription/core/domain"
+	dto "github.com/Fuerback/subscription/core/dto"
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -45,6 +46,18 @@ func (m *MockSubscriptionService) FetchOne(response http.ResponseWriter, request
 func (mr *MockSubscriptionServiceMockRecorder) FetchOne(response, request interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FetchOne", reflect.TypeOf((*MockSubscriptionService)(nil).FetchOne), response, request)
+}
+
+// UpdateStatus mocks base method.
+func (m *MockSubscriptionService) UpdateStatus(response http.ResponseWriter, request *http.Request) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "UpdateStatus", response, request)
+}
+
+// UpdateStatus indicates an expected call of UpdateStatus.
+func (mr *MockSubscriptionServiceMockRecorder) UpdateStatus(response, request interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateStatus", reflect.TypeOf((*MockSubscriptionService)(nil).UpdateStatus), response, request)
 }
 
 // MockSubscriptionUseCase is a mock of SubscriptionUseCase interface.
@@ -85,6 +98,20 @@ func (mr *MockSubscriptionUseCaseMockRecorder) FetchOne(id interface{}) *gomock.
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FetchOne", reflect.TypeOf((*MockSubscriptionUseCase)(nil).FetchOne), id)
 }
 
+// UpdateStatus mocks base method.
+func (m *MockSubscriptionUseCase) UpdateStatus(id string, status *dto.UpdateSubscriptionStatus) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateStatus", id, status)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// UpdateStatus indicates an expected call of UpdateStatus.
+func (mr *MockSubscriptionUseCaseMockRecorder) UpdateStatus(id, status interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateStatus", reflect.TypeOf((*MockSubscriptionUseCase)(nil).UpdateStatus), id, status)
+}
+
 // MockSubscriptionRepository is a mock of SubscriptionRepository interface.
 type MockSubscriptionRepository struct {
 	ctrl     *gomock.Controller
@@ -121,4 +148,18 @@ func (m *MockSubscriptionRepository) FetchOne(id string) (*domain.SubscriptionDe
 func (mr *MockSubscriptionRepositoryMockRecorder) FetchOne(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FetchOne", reflect.TypeOf((*MockSubscriptionRepository)(nil).FetchOne), id)
+}
+
+// UpdateStatus mocks base method.
+func (m *MockSubscriptionRepository) UpdateStatus(id string, status *dto.UpdateSubscriptionStatus) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateStatus", id, status)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// UpdateStatus indicates an expected call of UpdateStatus.
+func (mr *MockSubscriptionRepositoryMockRecorder) UpdateStatus(id, status interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateStatus", reflect.TypeOf((*MockSubscriptionRepository)(nil).UpdateStatus), id, status)
 }

@@ -19,17 +19,17 @@ func TestFromJSONCreatePurchaseRequest(t *testing.T) {
 	json, err := json.Marshal(fakeItem)
 	require.Nil(t, err)
 
-	r := httptest.NewRequest(http.MethodPost, "/v1/product/purchase/"+uuid.NewString(), nil)
+	r := httptest.NewRequest(http.MethodPost, "/v1/product/purchase/"+uuid.NewString(), strings.NewReader(string(json)))
 
-	itemRequest, err := FromJSONPurchaseProductRequest(strings.NewReader(string(json)), r)
+	itemRequest, err := FromJSONPurchaseProductRequest(r)
 
 	require.Nil(t, err)
 	require.Equal(t, itemRequest.Voucher, fakeItem.Voucher)
 }
 
 func TestFromJSONCreatePurchaseRequest_JSONDecodeError(t *testing.T) {
-	r := httptest.NewRequest(http.MethodPost, "/v1/product/purchase/"+uuid.NewString(), nil)
-	itemRequest, err := FromJSONPurchaseProductRequest(strings.NewReader("{"), r)
+	r := httptest.NewRequest(http.MethodPost, "/v1/product/purchase/"+uuid.NewString(), strings.NewReader("{"))
+	itemRequest, err := FromJSONPurchaseProductRequest(r)
 
 	require.NotNil(t, err)
 	require.Nil(t, itemRequest)

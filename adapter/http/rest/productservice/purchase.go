@@ -10,7 +10,7 @@ import (
 func (service service) Purchase(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("Content-type", "application/json")
 
-	purchaseRequest, err := dto.FromJSONPurchaseProductRequest(request.Body, request)
+	purchaseRequest, err := dto.FromJSONPurchaseProductRequest(request)
 	if err != nil {
 		response.WriteHeader(500)
 		response.Write([]byte(err.Error()))
@@ -25,5 +25,6 @@ func (service service) Purchase(response http.ResponseWriter, request *http.Requ
 		return
 	}
 
+	response.WriteHeader(http.StatusCreated)
 	json.NewEncoder(response).Encode(subscription)
 }

@@ -19,5 +19,6 @@ func (service service) Fetch(response http.ResponseWriter, request *http.Request
 		return
 	}
 
+	response.WriteHeader(http.StatusOK)
 	json.NewEncoder(response).Encode(products)
 }

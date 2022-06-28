@@ -18,5 +18,6 @@ func (service service) FetchOne(response http.ResponseWriter, request *http.Requ
 		return
 	}
 
+	response.WriteHeader(http.StatusOK)
 	json.NewEncoder(response).Encode(subscription)
 }

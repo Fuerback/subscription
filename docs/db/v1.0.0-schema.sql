@@ -26,8 +26,10 @@ CREATE TABLE voucher (
 
 CREATE TABLE subscription (
     id         STRING PRIMARY KEY,
-    starts_at   DATE   NOT NULL,
-    ends_at     DATE   NOT NULL,
+    starts_at         DATE   NOT NULL,
+    ends_at           DATE   NOT NULL,
+    paused_at         DATE   NULL,
+    cancelled_at      DATE   NULL,
     status     STRING NOT NULL,
     voucher_id STRING,
     account_id STRING NOT NULL,

@@ -8,7 +8,7 @@ import (
 
 const (
 	GetSubscriptionDetails = `
-	select s.id, cast(s.starts_at as text), cast(s.ends_at as text), s.status, s.voucher_id, p.name, p.period, p.price, a.name 
+	select s.id, cast(s.starts_at as text), cast(s.ends_at as text), ifnull(cast(s.paused_at as text),''), ifnull(cast(s.cancelled_at as text),''), s.status, s.voucher_id, p.name, p.period, p.price, a.name 
 	from subscription s 
 	join product as p on p.id = s.product_id 
 	join account as a on a.id = s.account_id 
@@ -33,6 +33,8 @@ func (repository repository) FetchOne(id string) (*domain.SubscriptionDetails, e
 		&subscription.ID,
 		&subscription.StartsAt,
 		&subscription.EndsAt,
+		&subscription.PausedAt,
+		&subscription.CancelledAt,
 		&subscription.Status,
 		&subscription.Voucher,
 		&subscription.Product.Name,

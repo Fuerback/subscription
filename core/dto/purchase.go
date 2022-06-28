@@ -2,7 +2,6 @@ package dto
 
 import (
 	"encoding/json"
-	"io"
 	"net/http"
 	"strings"
 )
@@ -15,9 +14,9 @@ type PurchaseRequest struct {
 }
 
 // FromJSONPurchaseProductRequest converts json body request to a PurchaseRequest struct
-func FromJSONPurchaseProductRequest(body io.Reader, request *http.Request) (*PurchaseRequest, error) {
+func FromJSONPurchaseProductRequest(request *http.Request) (*PurchaseRequest, error) {
 	purchaseProductRequest := PurchaseRequest{}
-	if err := json.NewDecoder(body).Decode(&purchaseProductRequest); err != nil {
+	if err := json.NewDecoder(request.Body).Decode(&purchaseProductRequest); err != nil {
 		return nil, err
 	}
 
