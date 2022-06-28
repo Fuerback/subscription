@@ -7,6 +7,7 @@ import (
 	"github.com/google/uuid"
 )
 
+// TODO: it shouldn't be in the product package
 func (repository repository) Purchase(subscription *domain.Subscription) (string, error) {
 	ctx := context.Background()
 
