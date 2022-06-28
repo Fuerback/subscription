@@ -17,7 +17,7 @@ func (usecase usecase) Purchase(purchaseRequest *dto.PurchaseRequest) (*domain.S
 		StartsAt:     time.Now().Format("2006-02-01"),
 		EndsAt:       getEndsAtPeriod(product.Period),
 		Product:      purchaseRequest.ProductID,
-		Account:      purchaseRequest.AccountD,
+		Account:      purchaseRequest.AccountID,
 		Status:       domain.Active,
 		PaymentValue: product.Price,
 		Voucher:      purchaseRequest.Voucher,
@@ -28,9 +28,7 @@ func (usecase usecase) Purchase(purchaseRequest *dto.PurchaseRequest) (*domain.S
 		return nil, err
 	}
 
-	subscription.ID = id
-
-	return subscription, nil
+	return &domain.Subscription{ID: id}, nil
 }
 
 func getEndsAtPeriod(period string) string {

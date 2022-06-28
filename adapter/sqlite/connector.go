@@ -10,6 +10,7 @@ import (
 // Db is an wraping to sql.DB to create test mocks
 type Db interface {
 	QueryContext(ctx context.Context, query string, args ...interface{}) (*sql.Rows, error)
+	QueryRowContext(ctx context.Context, query string, args ...interface{}) *sql.Row
 	PrepareContext(ctx context.Context, query string) (*sql.Stmt, error)
 	BeginTx(ctx context.Context, opts *sql.TxOptions) (*sql.Tx, error)
 }

@@ -1,6 +1,7 @@
 package productrepository
 
 import (
+	"database/sql"
 	"fmt"
 	"testing"
 
@@ -23,7 +24,7 @@ func TestFetchOne(t *testing.T) {
 	mock.ExpectQuery("select(.*) from product where *").WillReturnRows(sqlmock.NewRows([]string{}))
 
 	_, err = repo.FetchOne(id)
-	require.Nil(t, err)
+	require.Error(t, sql.ErrNoRows)
 }
 
 func TestFetchOne_Error(t *testing.T) {

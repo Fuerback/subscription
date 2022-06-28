@@ -10,24 +10,20 @@ func (repository repository) FetchOne(id string) (*domain.Product, error) {
 	ctx := context.Background()
 	product := &domain.Product{}
 
-	rows, err := repository.db.QueryContext(ctx, "select * from product where id = ?", id)
-	if err != nil {
-		return nil, err
+	rows := repository.db.QueryRowContext(ctx, "select * from product where id = ?", id)
+	if rows.Err() != nil {
+		return nil, rows.Err()
 	}
 
-	defer rows.Close()
-
-	for rows.Next() {
-		err = rows.Scan(
-			&product.ID,
-			&product.Name,
-			&product.Period,
-			&product.Price,
-			&product.Active,
-		)
-		if err != nil {
-			return nil, err
-		}
+	err := rows.Scan(
+		&product.ID,
+		&product.Name,
+		&product.Period,
+		&product.Price,
+		&product.Active,
+	)
+	if err != nil {
+		return nil, err
 	}
 
 	return product, nil

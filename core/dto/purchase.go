@@ -10,7 +10,7 @@ import (
 // PurchaseRequest is an representation request body to purchase a new Product
 type PurchaseRequest struct {
 	ProductID string
-	AccountD  string
+	AccountID string
 	Voucher   string `json:"voucher"`
 }
 
@@ -21,7 +21,7 @@ func FromJSONPurchaseProductRequest(body io.Reader, request *http.Request) (*Pur
 		return nil, err
 	}
 
-	purchaseProductRequest.AccountD = request.Header.Get("x-account-id")
+	purchaseProductRequest.AccountID = request.Header.Get("x-account-id")
 	purchaseProductRequest.ProductID = strings.TrimPrefix(request.URL.Path, "/v1/product/purchase/")
 
 	return &purchaseProductRequest, nil
