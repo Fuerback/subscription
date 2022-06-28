@@ -1,4 +1,4 @@
-package productrepository
+package subscriptionrepository
 
 import (
 	"database/sql"
@@ -20,7 +20,7 @@ func TestFetchOne(t *testing.T) {
 	repo := New(db)
 	id := uuid.NewString()
 
-	mock.ExpectQuery("select(.*) from product where *").WillReturnRows(sqlmock.NewRows([]string{}))
+	mock.ExpectQuery("select(.*) from subscription *").WillReturnRows(sqlmock.NewRows([]string{}))
 
 	_, err = repo.FetchOne(id)
 	require.Error(t, sql.ErrNoRows)
@@ -36,7 +36,7 @@ func TestFetchOne_Error(t *testing.T) {
 	repo := New(db)
 	id := uuid.NewString()
 
-	mock.ExpectQuery("select(.*) from product where *").WillReturnError(fmt.Errorf("some error"))
+	mock.ExpectQuery("select(.*) from subscription *").WillReturnError(fmt.Errorf("some error"))
 
 	_, err = repo.FetchOne(id)
 	require.NotNil(t, err)

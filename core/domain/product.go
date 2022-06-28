@@ -8,11 +8,11 @@ import (
 
 // Product is entity of table product database column
 type Product struct {
-	ID     string  `json:"id"`
-	Name   string  `json:"name"`
-	Price  float32 `json:"price"`
-	Period string  `json:"period"`
-	Active string  `json:"active"`
+	ID     string  `json:"id,omitempty"`
+	Name   string  `json:"name,omitempty"`
+	Price  float32 `json:"price,omitempty"`
+	Period string  `json:"period,omitempty"`
+	Active string  `json:"active,omitempty"`
 }
 
 const (
