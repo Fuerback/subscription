@@ -7,3 +7,4 @@ Subscription service
 - [ ] Integration test
 - [ ] Cache
 - [ ] Error handler
+- [ ] Test cover
