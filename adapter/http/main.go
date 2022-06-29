@@ -48,7 +48,8 @@ func main() {
 	router.HandleFunc("/v1/product/purchase/{id}", productService.Purchase).Methods("POST")
 
 	router.HandleFunc("/v1/subscription/{id}", subscriptionService.FetchOne).Methods("GET")
-	router.HandleFunc("/v1/subscription/status/{id}", subscriptionService.UpdateStatus).Methods("PATCH")
+	router.HandleFunc("/v1/subscription/cancel/{id}", subscriptionService.UpdateStatus).Methods("PUT")
+	router.HandleFunc("/v1/subscription/status/{id}", subscriptionService.UpdateStatus).Methods("PUT")
 
 	port := viper.GetString("server.port")
 	if port == "" {
