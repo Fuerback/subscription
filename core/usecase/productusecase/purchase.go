@@ -28,6 +28,8 @@ func (usecase usecase) Purchase(purchaseRequest *dto.PurchaseRequest) (*domain.S
 		return nil, err
 	}
 
+	// TODO: check voucher if exists
+	// TODO: calculate the total to charge
 	// TODO: save payment
 
 	return &domain.Subscription{ID: id}, nil

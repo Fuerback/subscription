@@ -11,7 +11,7 @@ docker-run:
 docker-tests:
 	docker run -p 8080:8080 $(img) go test ./...
 
-run-local:
+run:
 	go run .
 
 build:
