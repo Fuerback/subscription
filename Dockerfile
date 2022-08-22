@@ -1,10 +1,18 @@
-FROM golang:1.16 AS builder
+FROM golang:1.18
+
+ENV GO111MODULE=on
 
 WORKDIR /app
-COPY . .
+
+COPY go.mod ./
+COPY go.sum ./
+
 RUN go mod download
-RUN CGO_ENABLED=1 GOOS=linux go build -o /subscription -a -ldflags '-linkmode external -extldflags "-static"' .
+
+COPY . .
+
+RUN go build
 
 EXPOSE 8080
 
-CMD [ "/subscription" ]
+CMD ["./subscription"]

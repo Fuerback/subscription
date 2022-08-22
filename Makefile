@@ -9,7 +9,7 @@ docker-run:
 	docker run -p 8080:8080 $(img)
 
 docker-tests:
-	docker run -p 8080:8080 $(img) go test ./...
+	docker run -p 8080:8080 $(img) go test -cover ./...
 
 run:
 	go run .
