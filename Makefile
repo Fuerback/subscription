@@ -1,6 +1,6 @@
 img := subscription
 
-docker-up: build docker-image docker-run
+docker-up: docker-image docker-run
 
 docker-image:
 	docker build -t $(img) .

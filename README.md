@@ -32,7 +32,6 @@ make run-tests
 ## Docker
 
 ```shell
-make build
 make docker-image
 make docker-run
 ```
