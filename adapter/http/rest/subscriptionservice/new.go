@@ -1,13 +1,23 @@
 package subscriptionservice
 
-import "github.com/Fuerback/subscription/core/domain"
+import (
+	"net/http"
+
+	"github.com/Fuerback/subscription/core/usecase/subscriptionusecase"
+)
 
 type service struct {
-	usecase domain.SubscriptionUseCase
+	usecase subscriptionusecase.SubscriptionUseCase
+}
+
+// SubscriptionService is a contract of http adapter layer
+type SubscriptionService interface {
+	FetchOne(response http.ResponseWriter, request *http.Request)
+	UpdateStatus(response http.ResponseWriter, request *http.Request)
 }
 
 // New returns contract implementation of ProductService
-func New(usecase domain.SubscriptionUseCase) domain.SubscriptionService {
+func New(usecase subscriptionusecase.SubscriptionUseCase) SubscriptionService {
 	return &service{
 		usecase: usecase,
 	}

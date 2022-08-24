@@ -1,13 +1,24 @@
 package productservice
 
-import "github.com/Fuerback/subscription/core/domain"
+import (
+	"net/http"
+
+	"github.com/Fuerback/subscription/core/usecase/productusecase"
+)
 
 type service struct {
-	usecase domain.ProductUseCase
+	usecase productusecase.ProductUseCase
+}
+
+// ProductService is a contract of http adapter layer
+type ProductService interface {
+	Fetch(response http.ResponseWriter, request *http.Request)
+	FetchOne(response http.ResponseWriter, request *http.Request)
+	Purchase(response http.ResponseWriter, request *http.Request)
 }
 
 // New returns contract implementation of ProductService
-func New(usecase domain.ProductUseCase) domain.ProductService {
+func New(usecase productusecase.ProductUseCase) ProductService {
 	return &service{
 		usecase: usecase,
 	}
