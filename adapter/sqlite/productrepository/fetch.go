@@ -8,7 +8,7 @@ import (
 	"github.com/Fuerback/subscription/core/dto"
 )
 
-func (repository repository) Fetch(pagination *dto.PaginationRequestParms) (*domain.Pagination, error) {
+func (repository repository) Fetch(pagination *dto.PaginationRequestParms) ([]domain.Product, error) {
 	ctx := context.Background()
 	products := []domain.Product{}
 
@@ -36,8 +36,5 @@ func (repository repository) Fetch(pagination *dto.PaginationRequestParms) (*dom
 		products = append(products, product)
 	}
 
-	return &domain.Pagination{
-		Items: products,
-		Total: int32(len(products)),
-	}, nil
+	return products, nil
 }

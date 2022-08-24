@@ -31,10 +31,7 @@ func TestFetch(t *testing.T) {
 	fakePaginationRequestParams, fakeProduct, mock := setupFetch(t)
 	defer mock.Finish()
 	mockProductUseCase := mocks.NewMockProductUseCase(mock)
-	mockProductUseCase.EXPECT().Fetch(&fakePaginationRequestParams).Return(&domain.Pagination{
-		Items: []domain.Product{fakeProduct},
-		Total: 1,
-	}, nil)
+	mockProductUseCase.EXPECT().Fetch(&fakePaginationRequestParams).Return([]domain.Product{fakeProduct}, nil)
 
 	sut := New(mockProductUseCase)
 

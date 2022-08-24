@@ -96,10 +96,10 @@ func (m *MockProductUseCase) EXPECT() *MockProductUseCaseMockRecorder {
 }
 
 // Fetch mocks base method.
-func (m *MockProductUseCase) Fetch(paginationRequest *dto.PaginationRequestParms) (*domain.Pagination, error) {
+func (m *MockProductUseCase) Fetch(paginationRequest *dto.PaginationRequestParms) ([]domain.Product, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Fetch", paginationRequest)
-	ret0, _ := ret[0].(*domain.Pagination)
+	ret0, _ := ret[0].([]domain.Product)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -164,10 +164,10 @@ func (m *MockProductRepository) EXPECT() *MockProductRepositoryMockRecorder {
 }
 
 // Fetch mocks base method.
-func (m *MockProductRepository) Fetch(paginationRequest *dto.PaginationRequestParms) (*domain.Pagination, error) {
+func (m *MockProductRepository) Fetch(paginationRequest *dto.PaginationRequestParms) ([]domain.Product, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Fetch", paginationRequest)
-	ret0, _ := ret[0].(*domain.Pagination)
+	ret0, _ := ret[0].([]domain.Product)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

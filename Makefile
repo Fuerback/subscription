@@ -19,3 +19,10 @@ build:
 
 run-tests:
 	go test ./... -cover
+
+mock-update:
+	mockgen -source=./core/domain/subscription.go -destination=./core/domain/mocks/fakesubscription.go -package=mocks
+	mockgen -source=./core/domain/product.go -destination=./core/domain/mocks/fakeproducts.go -package=mocks
+
+fmt:
+	go fmt ./...

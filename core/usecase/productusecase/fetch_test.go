@@ -24,17 +24,14 @@ func TestFetch(t *testing.T) {
 	mockCtrl := gomock.NewController(t)
 	defer mockCtrl.Finish()
 	mockProductRepository := mocks.NewMockProductRepository(mockCtrl)
-	mockProductRepository.EXPECT().Fetch(&fakePaginationRequestParams).Return(&domain.Pagination{
-		Items: []domain.Product{fakeDBProduct},
-		Total: 10,
-	}, nil)
+	mockProductRepository.EXPECT().Fetch(&fakePaginationRequestParams).Return([]domain.Product{fakeDBProduct}, nil)
 
 	sut := New(mockProductRepository)
 	products, err := sut.Fetch(&fakePaginationRequestParams)
 
 	require.Nil(t, err)
 
-	for _, product := range products.Items.([]domain.Product) {
+	for _, product := range products {
 		require.Nil(t, err)
 		require.NotEmpty(t, product.ID)
 		require.Equal(t, product.Name, fakeDBProduct.Name)

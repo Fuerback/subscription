@@ -11,6 +11,12 @@ type PaginationRequestParms struct {
 	PerPage int `json:"perPage"`
 }
 
+// Pagination is representation of Fetch methods returns
+type PaginationResponse struct {
+	Items interface{} `json:"items"`
+	Total int32       `json:"total"`
+}
+
 // FromValuePaginationRequestParams converts query string params to a PaginationRequestParms struct
 func FromValuePaginationRequestParams(request *http.Request) (*PaginationRequestParms, error) {
 	page, err := strconv.Atoi(request.FormValue("page"))

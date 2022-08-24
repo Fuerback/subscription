@@ -19,6 +19,11 @@ func (service service) Fetch(response http.ResponseWriter, request *http.Request
 		return
 	}
 
+	paginationResponse := &dto.PaginationResponse{
+		Items: products,
+		Total: int32(len(products)),
+	}
+
 	response.WriteHeader(http.StatusOK)
-	json.NewEncoder(response).Encode(products)
+	json.NewEncoder(response).Encode(paginationResponse)
 }
