@@ -34,7 +34,7 @@ func FromJSONCreateProductRequest(body io.Reader) (*CreateProductRequest, error)
 	return &createProductRequest, nil
 }
 
-func FromDomainToDto(product domain.Product) ProductResponse {
+func FromDomainToDtoProduct(product domain.Product) ProductResponse {
 	return ProductResponse{
 		ID:     product.ID,
 		Name:   product.Name,

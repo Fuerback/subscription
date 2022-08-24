@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 	"strings"
+
+	"github.com/Fuerback/subscription/core/dto"
 )
 
 func (service service) FetchOne(response http.ResponseWriter, request *http.Request) {
@@ -18,6 +20,8 @@ func (service service) FetchOne(response http.ResponseWriter, request *http.Requ
 		return
 	}
 
+	productResponse := dto.FromDomainToDtoProduct(*product)
+
 	response.WriteHeader(http.StatusOK)
-	json.NewEncoder(response).Encode(product)
+	json.NewEncoder(response).Encode(productResponse)
 }

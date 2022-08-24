@@ -25,6 +25,8 @@ func (service service) Purchase(response http.ResponseWriter, request *http.Requ
 		return
 	}
 
+	subscriptionResponse := dto.FromDomainToDtoSubscription(*subscription)
+
 	response.WriteHeader(http.StatusCreated)
-	json.NewEncoder(response).Encode(subscription)
+	json.NewEncoder(response).Encode(subscriptionResponse)
 }

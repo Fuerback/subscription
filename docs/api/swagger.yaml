@@ -85,6 +85,46 @@ components:
             - ACTIVE
       required:
         - status
+
+    SubscriptionPurchaseResponse:
+      type: object
+      properties:
+        subscription_id:
+          type: string
+          description: The subscription unique ID
+          example: 6903187c-a7b3-488d-9759-ab0db7aa3f2e
+        starts_at:
+          type: string
+          description: The subscription initial date
+          example: 2017-07-21
+        ends_at:
+          type: string
+          description: The subscription final date
+          example: 2017-07-21
+        product:
+          type: string
+          description: The product unique id
+          example: 6903187c-a7b3-488d-9759-ab0db7aa3f2e
+        account:
+          type: string
+          description: The account unique id
+          example: 6903187c-a7b3-488d-9759-ab0db7aa3f2e
+        status:
+          description: The subscription status
+          type: string
+          example: ACTIVE
+          enum:
+            - PAUSED
+            - CANCELLED
+            - TRIAL
+        voucher:
+          type: string
+          description: The subscription voucher
+          example: 10_OFF
+        payment_value:
+          type: number
+          description: The subscription payment value
+          example: 99.90
     
     Subscription:
       type: object
@@ -257,7 +297,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Subscription'
+                $ref: '#/components/schemas/SubscriptionPurchaseResponse'
         '400':
           description: Bad request.
           content:
