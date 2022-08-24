@@ -14,10 +14,14 @@ import (
 	"github.com/Fuerback/subscription/adapter/sqlite/subscriptionrepository"
 	"github.com/Fuerback/subscription/core/usecase/productusecase"
 	"github.com/Fuerback/subscription/core/usecase/subscriptionusecase"
+	"github.com/go-playground/validator/v10"
 	"github.com/gorilla/mux"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/spf13/viper"
 )
+
+// use a single instance of Validate, it caches struct info
+var jsonValidate *validator.Validate
 
 func init() {
 	viper.SetConfigFile(`config.json`)
@@ -31,10 +35,12 @@ func main() {
 	ctx := context.Background()
 	conn := sqlite.GetConnection(ctx)
 
+	jsonValidate = validator.New()
+
 	// Config Product
 	productRepository := productrepository.New(conn)
 	productUseCase := productusecase.New(productRepository)
-	productService := productservice.New(productUseCase)
+	productService := productservice.New(productUseCase, jsonValidate)
 
 	// Config Subscription
 	subscriptionRepository := subscriptionrepository.New(conn)

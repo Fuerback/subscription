@@ -10,7 +10,7 @@ import (
 type PurchaseRequest struct {
 	ProductID string
 	AccountID string
-	Voucher   string `json:"voucher"`
+	Voucher   string `json:"voucher,omitempty,min=3,max=50"`
 }
 
 // FromJSONPurchaseProductRequest converts json body request to a PurchaseRequest struct

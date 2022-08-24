@@ -12,15 +12,22 @@ func (service service) Purchase(response http.ResponseWriter, request *http.Requ
 
 	purchaseRequest, err := dto.FromJSONPurchaseProductRequest(request)
 	if err != nil {
-		response.WriteHeader(500)
+		response.WriteHeader(http.StatusInternalServerError)
 		response.Write([]byte(err.Error()))
 		return
 	}
 
+	// err = service.jsonValidate.Struct(purchaseRequest)
+	// if err != nil {
+	// 	response.WriteHeader(http.StatusBadRequest)
+	// 	response.Write([]byte(err.Error()))
+	// 	return
+	// }
+
 	subscription, err := service.usecase.Purchase(purchaseRequest)
 
 	if err != nil {
-		response.WriteHeader(500)
+		response.WriteHeader(http.StatusInternalServerError)
 		response.Write([]byte(err.Error()))
 		return
 	}

@@ -12,6 +12,7 @@ import (
 	"github.com/Fuerback/subscription/core/domain/mocks"
 	"github.com/Fuerback/subscription/core/dto"
 	"github.com/bxcodec/faker/v3"
+	"github.com/go-playground/validator/v10"
 	"github.com/golang/mock/gomock"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
@@ -35,7 +36,7 @@ func TestPurchase(t *testing.T) {
 	mockProductUseCase := mocks.NewMockProductUseCase(mock)
 	mockProductUseCase.EXPECT().Purchase(gomock.Any()).Return(&fakeSubscription, nil)
 
-	sut := New(mockProductUseCase)
+	sut := New(mockProductUseCase, validator.New())
 
 	payload, _ := json.Marshal(fakePurchase)
 
@@ -58,7 +59,7 @@ func TestPurchase_PorductError(t *testing.T) {
 	mockProductUseCase := mocks.NewMockProductUseCase(mock)
 	mockProductUseCase.EXPECT().Purchase(gomock.Any()).Return(nil, fmt.Errorf("ANY ERROR"))
 
-	sut := New(mockProductUseCase)
+	sut := New(mockProductUseCase, validator.New())
 
 	payload, _ := json.Marshal(fakePurchase)
 

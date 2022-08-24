@@ -21,8 +21,12 @@ run-tests:
 	go test ./... -cover
 
 mock-update:
-	mockgen -source=./core/domain/subscription.go -destination=./core/domain/mocks/fakesubscription.go -package=mocks
-	mockgen -source=./core/domain/product.go -destination=./core/domain/mocks/fakeproducts.go -package=mocks
+	mockgen -source=./adapter/http/rest/subscriptionservice/new.go -destination=./core/domain/mocks/fakesubscriptionservice.go -package=mocks
+	mockgen -source=./adapter/http/rest/productservice/new.go -destination=./core/domain/mocks/fakeproductservice.go -package=mocks
+	mockgen -source=./core/usecase/productusecase/new.go -destination=./core/domain/mocks/fakeproductusecase.go -package=mocks
+	mockgen -source=./core/usecase/subscriptionusecase/new.go -destination=./core/domain/mocks/fakesubscriptionusecase.go -package=mocks
+	mockgen -source=./adapter/sqlite/productrepository/new.go -destination=./core/domain/mocks/fakeproductrepository.go -package=mocks
+	mockgen -source=./adapter/sqlite/subscriptionrepository/new.go -destination=./core/domain/mocks/fakesubscriptionrepository.go -package=mocks
 
 fmt:
 	go fmt ./...

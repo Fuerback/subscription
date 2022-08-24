@@ -4,10 +4,12 @@ import (
 	"net/http"
 
 	"github.com/Fuerback/subscription/core/usecase/productusecase"
+	"github.com/go-playground/validator/v10"
 )
 
 type service struct {
-	usecase productusecase.ProductUseCase
+	usecase      productusecase.ProductUseCase
+	jsonValidate *validator.Validate
 }
 
 // ProductService is a contract of http adapter layer
@@ -18,8 +20,9 @@ type ProductService interface {
 }
 
 // New returns contract implementation of ProductService
-func New(usecase productusecase.ProductUseCase) ProductService {
+func New(usecase productusecase.ProductUseCase, jsonValidate *validator.Validate) ProductService {
 	return &service{
-		usecase: usecase,
+		usecase:      usecase,
+		jsonValidate: jsonValidate,
 	}
 }

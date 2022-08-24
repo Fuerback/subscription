@@ -9,6 +9,7 @@ import (
 	"github.com/Fuerback/subscription/core/domain"
 	"github.com/Fuerback/subscription/core/domain/mocks"
 	"github.com/bxcodec/faker/v3"
+	"github.com/go-playground/validator/v10"
 	"github.com/golang/mock/gomock"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
@@ -30,7 +31,7 @@ func TestFetchOne(t *testing.T) {
 	mockProductUseCase := mocks.NewMockProductUseCase(mock)
 	mockProductUseCase.EXPECT().FetchOne(fakeId).Return(&fakeProduct, nil)
 
-	sut := New(mockProductUseCase)
+	sut := New(mockProductUseCase, validator.New())
 
 	w := httptest.NewRecorder()
 	r := httptest.NewRequest(http.MethodGet, "/v1/product/"+fakeId, nil)
@@ -51,7 +52,7 @@ func TestFetchOne_PorductError(t *testing.T) {
 	mockProductUseCase := mocks.NewMockProductUseCase(mock)
 	mockProductUseCase.EXPECT().FetchOne(fakeId).Return(nil, fmt.Errorf("ANY ERROR"))
 
-	sut := New(mockProductUseCase)
+	sut := New(mockProductUseCase, validator.New())
 
 	w := httptest.NewRecorder()
 	r := httptest.NewRequest(http.MethodGet, "/v1/product/"+fakeId, nil)
