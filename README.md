@@ -26,7 +26,7 @@ make run-local
 ```
 
 ```shell
-make run-tests
+make tests
 ```
 
 ## Docker
