@@ -4,7 +4,7 @@ The project is a Subscription service using Golang and REST API that uses gorill
 The project is also using Clean Architecture.
 
 # TODO
-- [ ] Json validator
+- [x] Json validator
 - [ ] Context timeout
 - [ ] Integration test
 - [ ] Cache
