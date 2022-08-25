@@ -17,7 +17,7 @@ run:
 build:
 	go build
 
-run-tests:
+tests:
 	go test ./... -cover
 
 mock-update:

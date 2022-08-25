@@ -17,12 +17,12 @@ func (service service) Purchase(response http.ResponseWriter, request *http.Requ
 		return
 	}
 
-	// err = service.jsonValidate.Struct(purchaseRequest)
-	// if err != nil {
-	// 	response.WriteHeader(http.StatusBadRequest)
-	// 	response.Write([]byte(err.Error()))
-	// 	return
-	// }
+	err = service.jsonValidate.Struct(purchaseRequest)
+	if err != nil {
+		response.WriteHeader(http.StatusBadRequest)
+		response.Write([]byte(err.Error()))
+		return
+	}
 
 	subscription, err := service.usecase.Purchase(purchaseRequest)
 
